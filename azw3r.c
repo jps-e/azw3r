@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-  char *s, *inpnam=NULL, *rawnam=NULL, *notestr=NULL, numstr[16];
+  char *s, *inpnam=NULL, *rawnam=NULL, notestr[16384], numstr[16];
   unsigned char *buf, *dat, *data;
   int fdinp, fdraw, highlight=0, note=0;
   unsigned hbeg, hblen, hend, helen, nbeg, nblen, nend, nelen, flen;
@@ -88,14 +88,13 @@ int main(int argc, char *argv[])
         while (dat[0] != 3) dat++;
         dat++;
         flen = (dat[0]*256 + dat[1])*256 + dat[2]; dat += 3;
-        notestr = (char *) malloc(flen);
+        if (flen > 16383) flen = 16383;
         strncpy(notestr, dat, flen); notestr[flen] = 0;
       } else {
         fprintf(stderr, "File syncnronization lost.\n");
         goto NEXTbyte;
       }
       printf("%u\t%u\tNote:\t'%s'\n", nbeg, nend, notestr);
-      if (notestr) { free(notestr); notestr = NULL; }
     }
     NEXTbyte: dat++;
   }
