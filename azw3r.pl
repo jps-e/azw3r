@@ -5,6 +5,7 @@ use Getopt::Long;
 
 my ($inp, $buf, $loc, $n, $v); my $highlight=0; my $note=0; my $pos=0;
 my $b00 = pack 'C3', (2, 0, 0); my $c00 = pack 'C3', (3, 0, 0);
+my $c0 = pack 'C2', (3, 0);
 GetOptions(
            "inp=s" => \$inp,
            "h"     => \$highlight,
@@ -46,7 +47,7 @@ while ($pos < $size) {
       $flen = unpack('n', substr($buf, $loc+2, 2)); $pos = $loc+2 + $flen;
       $loc = index $buf, $c00, $pos;
       $flen = unpack('n', substr($buf, $loc+2, 2)); $pos = $loc+2 + $flen;
-      $loc = index $buf, $c00, $pos;
+      $loc = index $buf, $c0, $pos;
       $flen = unpack('n', substr($buf, $loc+2, 2)); $pos = $loc+4;
       my $notestr = substr $buf, $pos, $flen;
       print "$nbeg\t$nend\tNote:\t'$notestr'\n";
