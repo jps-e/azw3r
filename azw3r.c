@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
   int fdinp, fdraw, highlight=0, note=0;
   unsigned hbeg, hblen, hend, helen, nbeg, nblen, nend, nelen, flen;
   struct stat sbuf;
+  FILE *fhraw=NULL;
 
   s = *argv++;
   while ((s = *argv++)) {
@@ -24,6 +25,7 @@ int main(int argc, char *argv[])
       case 'r': rawnam = *argv++; break;
     }
   }
+  if (rawnam) fhraw = fopen(rawnam, "r");
   if (!(highlight || note)) note = 1;
   if (stat(inpnam, &sbuf)) {
     fprintf(stderr, "Can't stat input file: '%s'!\n", inpnam);
@@ -54,7 +56,13 @@ int main(int argc, char *argv[])
         fprintf(stderr, "File synchronization lost.\n");
         goto NEXTbyte;
       }
-      printf("%u\t%u\tHighlight\n", hbeg, hend);
+      if (fhraw) { int n;
+        fseek(fhraw, hbeg + 14, SEEK_SET);
+        n = fread(notestr, 1, hend - hbeg + 1, fhraw);
+        notestr[n] = 0;
+      }
+      printf("%u\t%u\tHighlight:", hbeg, hend);
+      if (fhraw) { printf("\t'%s'\n", notestr); } else printf("\n");
     }
     if (note) if (!strncmp(dat, "annotation.personal.note", 24)) {
       if (dat[24] == 3) {

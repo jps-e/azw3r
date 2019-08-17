@@ -1,3 +1,23 @@
 = azw3r
 
 tools to extract data from azw3r files such as notes, highlights and bookmarks.
+
+== azw3r.c
+
+To compile:
+
+`cc -o azw3r azw3r.c`
+
+Usage examples:
+
+`azw3r -i name.azw3r > name.notes` +
+`azw3r -h -i name.azw3r > name.highlights` +
+`azw3r -h -n -i name.azw3r > name.notes` +
+`azw3r -i name.azw3r | sort -n > name.notes` +
+
+Arguments:
+
+`-i input_file_name` (file to extract notes and highlight locations from) +
+`-h` (extract highlight locations) +
+`-n` (extract note locations and notes) +
+`-r` rawml_file_name` (file to extract highlight text from) +
