@@ -20,4 +20,5 @@ Arguments:
 `-i input_file_name` (file to extract notes and highlight locations from) +
 `-h` (extract highlight locations) +
 `-n` (extract note locations and notes) +
+`-o offset` (default 14, offset of text in rawml added to value from azw3r) +
 `-r` rawml_file_name` (file to extract highlight text from) +
