@@ -5,11 +5,12 @@ use Getopt::Long;
 
 my ($inp, $buf, $loc, $n, $hl, $raw); my $highlight=0; my $note=0; my $pos=0;
 my $b00 = pack 'C3', (2, 0, 0); my $c00 = pack 'C3', (3, 0, 0);
-my $c0 = pack 'C2', (3, 0);
+my $c0 = pack 'C2', (3, 0); my $offset = 14;
 GetOptions(
            "inp=s" => \$inp,
            "h"     => \$highlight,
            "n"     => \$note,
+           "offset=i" => \$offset,
            "raw=s" => \$raw
           );
 if ($raw) { open FHraw, $raw or die "Can't open $raw for reading"; }
@@ -30,7 +31,7 @@ while ($pos < $size) {
       my $helen = unpack('n', substr($buf, $pos + 2, 2));
       my $hend = substr($buf, $pos + 4, $helen); $pos = $pos + 4 + $helen;
       if ($raw) {
-        seek FHraw, $hbeg + 14, 0;
+        seek FHraw, $hbeg + $offset, 0;
         $n = read FHraw, $hl, $hend - $hbeg + 1;
       }
       print "$hbeg\t$hend\tHighlight:";

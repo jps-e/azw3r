@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
   char *s, *inpnam=NULL, *rawnam=NULL, notestr[16384], numstr[16];
   unsigned char *buf, *dat, *data;
-  int fdinp, fdraw, highlight=0, note=0;
+  int fdinp, fdraw, highlight=0, note=0, offset=14;
   unsigned hbeg, hblen, hend, helen, nbeg, nblen, nend, nelen, flen;
   struct stat sbuf;
   FILE *fhraw=NULL;
@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
       case 'i': inpnam = *argv++; break;
       case 'h': highlight = 1; break;
       case 'n': note = 1; break;
+      case 'o': offset = atoi(*argv++); break;
       case 'r': rawnam = *argv++; break;
     }
   }
@@ -57,7 +58,7 @@ int main(int argc, char *argv[])
         goto NEXTbyte;
       }
       if (fhraw) { int n;
-        fseek(fhraw, hbeg + 14, SEEK_SET);
+        fseek(fhraw, hbeg + offset, SEEK_SET);
         n = fread(notestr, 1, hend - hbeg + 1, fhraw);
         notestr[n] = 0;
       }
