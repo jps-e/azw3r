@@ -5,7 +5,7 @@ use Getopt::Long;
 
 my ($beg, $end, $siz, $n, $num, $out, $raw, $tag, $txt, $fh_out, $label, @note);
 my $b = '<b>'; my $eb = '</b>';
-my $pos = -14; my $i = 0;
+my $pos = 0; my $i = 0;
 GetOptions(
            "num"   => \$num,
            "out=s" => \$out,

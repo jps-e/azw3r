@@ -5,7 +5,7 @@ use Getopt::Long;
 
 my ($inp, $buf, $loc, $n, $hl, $raw); my $highlight=0; my $note=0; my $pos=0;
 my $b00 = pack 'C3', (2, 0, 0); my $c00 = pack 'C3', (3, 0, 0);
-my $c0 = pack 'C2', (3, 0); my $offset = 14;
+my $c0 = pack 'C2', (3, 0); my $offset = 0;
 GetOptions(
            "inp=s" => \$inp,
            "h"     => \$highlight,

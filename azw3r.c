@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
   char *s, *inpnam=NULL, *rawnam=NULL, notestr[16384], numstr[16];
   unsigned char *buf, *dat, *data;
-  int fdinp, fdraw, highlight=0, note=0, offset=14;
+  int fdinp, fdraw, highlight=0, note=0, offset=0;
   unsigned hbeg, hblen, hend, helen, nbeg, nblen, nend, nelen, flen;
   struct stat sbuf;
   FILE *fhraw=NULL;
