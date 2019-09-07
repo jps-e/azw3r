@@ -8,7 +8,6 @@ my $json = do { local $/; <FH> };
 close FH;
 my %krds = %{decode_json($json)};
 my @names = keys %krds;
-my @vals = values %krds;
 for (@names) {
   next unless /annotation.cache.object/;
   my %annotations = %{$krds{$_}};
