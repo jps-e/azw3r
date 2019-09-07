@@ -17,4 +17,9 @@ for (@names) {
   for my $n (@notes) {
     print "$n->{startPosition}\t$n->{endPosition}\tNote:\t'$n->{note}'\n";
   }
+  @notes = $annotations{'annotation.personal.highlight'};
+  @notes = @{$notes[0]};
+  for my $n (@notes) {
+    print "$n->{startPosition}\t$n->{endPosition}\tHighlight:\n";
+  }
 }
